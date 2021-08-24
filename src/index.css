@@ -1,13 +1,134 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+               'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+               sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --font-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+               monospace;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#app {
+  display: grid;
+  grid-template-columns: 1fr 3fr 4fr;
+  height: 100vh;
+}
+
+.folder {
+  cursor: pointer;
+  padding: 1rem 0.5rem;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  display: flex;
+  justify-content: space-between;
+}
+
+.folder.is-selected {
+  background: yellowgreen;
+}
+
+.folder:hover {
+  background: #9acd3266;
+}
+
+#mail-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  height: 100%;
+  overflow-y: auto;
+  border-left: 1px dashed lightgray;
+  border-right: 1px dashed lightgray;
+}
+
+#preview {
+  height: 100%;
+  overflow-y: auto;
+}
+
+#preview article {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+#toolbar {
+  top: 0;
+  position: sticky;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  display: flex;
+  justify-content: flex-end;
+
+  background: cornsilk;
+}
+
+#toolbar label {
+  margin: 0 1rem;
+  cursor: pointer;
+  font-size: large;
+}
+
+#toolbar input {
+  cursor: pointer;
+  display: inline-block;
+
+  height: 0.8rem;
+  width: 0.8rem;
+
+  margin: 0;
+  margin-right: 0.3rem;
+}
+
+.letter {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.letter:hover {
+  background: #ffff0075;
+}
+
+.letter.is-selected {
+  background: yellow;
+}
+
+.letter-from {
+  font-size: small;
+  color: #333;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  margin-bottom: 0.5rem;
+}
+
+.letter-subject {
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+.letter-date {
+  color: #333;
+  font-size: small;
+}
+
+.letter-preview-from {
+  margin-bottom: 1rem;
+}
+
+.letter-preview-date {
+  margin-bottom: 1rem;
+}
+
+.letter-preview-subject {
+  margin-bottom: 1rem;
+}
+
+#preview .label {
+  font-family: var(--font-mono);
 }
