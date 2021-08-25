@@ -55,6 +55,7 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
         map((letters) => letters.map((letter) => (
           <li
             key={letter.id}
+            data-letterid={letter.id}
             className={classNames('letter', { 'is-selected': letter === selectedLetter })}
             onClick={() => state.selectLetter(letter)}
           >

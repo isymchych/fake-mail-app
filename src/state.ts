@@ -31,6 +31,7 @@ export class State {
 
   selectFolder(folder: IFolder): void {
     this.selectedFolder$.next(folder);
+    this.selectedLetterId$.next(undefined);
   }
 
   toggleSelectedLetterRead = () => {
@@ -125,7 +126,7 @@ export class State {
       nextPos = 0;
     }
 
-    this.selectedFolder$.next(FOLDERS[nextPos]);
+    this.selectFolder(FOLDERS[nextPos]);
   };
 
   prevFolder = () => {
@@ -136,6 +137,6 @@ export class State {
       nextPos = FOLDERS.length - 1;
     }
 
-    this.selectedFolder$.next(FOLDERS[nextPos]);
+    this.selectFolder(FOLDERS[nextPos]);
   };
 }
