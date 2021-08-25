@@ -9,9 +9,7 @@ import { actionHandlers$ } from './keybindings';
 
 const state = new State();
 
-// TODO
-// * clear selection after letter update if needed
-
+// install keybindings
 actionHandlers$(state)
   .subscribe(action => console.log('action: %s', action));
 
@@ -24,6 +22,16 @@ state.selectedLetter$.subscribe((letter) => {
   document.querySelector(`[data-letterid="${letter.id}"]`)?.scrollIntoView(false);
 });
 
+// scroll mail list to top when switching folders
+state.selectedFolder$.subscribe(() => {
+  const listEl = document.getElementById('mail-list');
+
+  if (listEl) {
+    listEl.scrollTop = 0;
+  }
+});
+
+// render UI
 interval(60 * 1000).pipe(
   startWith(0),
   switchMap(() => buildApp$(state, new Date())),
