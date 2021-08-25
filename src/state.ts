@@ -4,6 +4,7 @@ import { IFolder, ILetter } from './types';
 import { genFakeLetters, sortLettersByDateDesc } from './utils';
 import { FOLDERS } from './folders';
 
+// TODO refactor state into redux-line state and actions
 export class State {
   letters$ = new BehaviorSubject<ILetter[]>(genFakeLetters());
   selectedFolder$ = new BehaviorSubject<IFolder>(FOLDERS[0]);
