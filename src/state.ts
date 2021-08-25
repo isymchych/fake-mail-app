@@ -1,6 +1,6 @@
 import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
-import { IFolder, ILetter } from "./types";
+import { IFolder, ILetter } from './types';
 import { genFakeLetters, sortLettersByDateDesc } from './utils';
 
 export const FOLDERS: IFolder[] = [
@@ -50,18 +50,6 @@ export class State {
       ),
     ),
   );
-
-  currentDate$: BehaviorSubject<Date>;
-
-  constructor() {
-    this.currentDate$ = new BehaviorSubject(new Date());
-  }
-
-  start() {
-    setInterval(() => {
-      this.currentDate$.next(new Date());
-    }, 60 * 1000);
-  }
 
   markLetterRead(letterId: string, isRead: boolean): void {
     const letters = this.letters$.value.map((letter) => {
