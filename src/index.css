@@ -132,3 +132,13 @@ body {
 #preview .label {
   font-family: var(--font-mono);
 }
+
+#keybindings {
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  background: lightsteelblue;
+  font-family: var(--font-mono);
+  font-size: small;
+  border: 1px dashed blue;
+}

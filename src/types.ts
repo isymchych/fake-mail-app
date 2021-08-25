@@ -12,3 +12,5 @@ export interface ILetter {
   isRead: boolean
   isDeleted: boolean
 }
+
+export type Action = 'next-letter' | 'prev-letter' | 'next-folder' | 'prev-folder' | 'toggle-deleted' | 'toggle-read';

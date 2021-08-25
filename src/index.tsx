@@ -1,23 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { interval, startWith, switchMap } from 'rxjs';
 
 import './index.css';
 import { buildApp$ } from './ui';
 import { State } from './state';
-import { interval, startWith, switchMap } from 'rxjs';
+import { actionHandlers$ } from './keybindings';
 
 const state = new State();
+
+// TODO
+// * scroll selected letter into view
+// * clear selection on folder change
+// * clear selection after letter update if needed
+
+actionHandlers$(state).subscribe();
 
 interval(60 * 1000).pipe(
   startWith(0),
   switchMap(() => buildApp$(state, new Date())),
-).subscribe({
-  next(app) {
-    ReactDOM.render(
-      <React.StrictMode>
-        {app}
-      </React.StrictMode>,
-      document.getElementById('root')
-    )
-  }
+).subscribe((app) => {
+  ReactDOM.render(
+    <React.StrictMode>
+      {app}
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 });

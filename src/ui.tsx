@@ -4,13 +4,32 @@ import classNames from 'classnames';
 import { formatRelative } from 'date-fns';
 import { State } from './state';
 import { FOLDERS } from './folders';
+import { KEYBINDINGS } from './keybindings';
+
+const keybindingsUI = (
+  <table id="keybindings">
+    <thead>
+      <tr>
+        <th>Key</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {Object.entries(KEYBINDINGS).map(([key, action]) => (
+        <tr key={key}>
+          <td>{key}</td>
+          <td>{action}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
 
 export function buildApp$(state: State, currentDate: Date): Observable<JSX.Element> {
   const {
     selectedFolder$,
     letters$,
     visibleLetters$,
-    selectedLetterId$,
     selectedLetter$,
   } = state;
 
@@ -22,7 +41,7 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
         <div
           key={folder.name}
           className={classNames('folder', { 'is-selected': folder === selectedFolder })}
-          onClick={() => selectedFolder$.next(folder)}
+          onClick={() => state.selectFolder(folder)}
         >
           {folder.name} <small>{letterCount}</small>
         </div>
@@ -30,14 +49,14 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
     })),
   );
 
-  const lettersUI$ = selectedLetterId$.pipe(
-    mergeMap((selectedLetterId) =>
+  const lettersUI$ = selectedLetter$.pipe(
+    mergeMap((selectedLetter) =>
       visibleLetters$.pipe(
         map((letters) => letters.map((letter) => (
           <li
             key={letter.id}
-            className={classNames('letter', { 'is-selected': letter.id === selectedLetterId })}
-            onClick={() => selectedLetterId$.next(letter.id)}
+            className={classNames('letter', { 'is-selected': letter === selectedLetter })}
+            onClick={() => state.selectLetter(letter)}
           >
             <div className="letter-from">
               {letter.from}
@@ -69,7 +88,7 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
               <input
                 type="checkbox"
                 checked={selectedLetter.isRead}
-                onChange={el => state.markLetterRead(selectedLetter.id, el.target.checked)}
+                onChange={() => state.toggleSelectedLetterRead()}
               />
 
               Is read
@@ -79,7 +98,7 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
               <input
                 type="checkbox"
                 checked={selectedLetter.isDeleted}
-                onChange={el => state.markLetterDeleted(selectedLetter.id, el.target.checked)}
+                onChange={() => state.toggleSelectedLetterDeleted()}
               />
 
               Is deleted
@@ -120,6 +139,8 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
           <div id="preview">
             {selectedLetterUI}
           </div>
+
+          {keybindingsUI}
         </div>
       )),
     );
