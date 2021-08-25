@@ -20,12 +20,12 @@ const actions$ = fromEvent<KeyboardEvent>(document, 'keydown')
 
 export function actionHandlers$(state: State) {
   const ActionHandlers: Record<Action, Function> = {
-    'next-folder': () => state.nextFolder(),
-    'prev-folder': () => state.prevFolder(),
-    'next-letter': () => state.nextLetter(),
-    'prev-letter': () => state.prevLetter(),
-    'toggle-deleted': () => state.toggleSelectedLetterDeleted(),
-    'toggle-read': () => state.toggleSelectedLetterRead(),
+    'next-folder': state.nextFolder,
+    'prev-folder': state.prevFolder,
+    'next-letter': state.nextLetter,
+    'prev-letter': state.prevLetter,
+    'toggle-deleted': state.toggleSelectedLetterDeleted,
+    'toggle-read': state.toggleSelectedLetterRead,
   };
 
   return actions$.pipe(

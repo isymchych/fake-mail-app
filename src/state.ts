@@ -33,7 +33,7 @@ export class State {
     this.selectedFolder$.next(folder);
   }
 
-  toggleSelectedLetterRead(): void {
+  toggleSelectedLetterRead = () => {
     combineLatest([this.letters$, this.selectedLetter$])
     .pipe(take(1))
     .subscribe({
@@ -54,9 +54,9 @@ export class State {
         }));
       },
     });
-  }
+  };
 
-  toggleSelectedLetterDeleted(): void {
+  toggleSelectedLetterDeleted = () => {
     combineLatest([this.letters$, this.selectedLetter$])
     .pipe(take(1))
     .subscribe({
@@ -77,9 +77,9 @@ export class State {
         }));
       },
     });
-  }
+  };
 
-  nextLetter(): void {
+  nextLetter = () => {
     combineLatest([this.visibleLetters$, this.selectedLetter$])
     .pipe(take(1))
     .subscribe({
@@ -96,9 +96,9 @@ export class State {
         this.selectLetter(visibleLetters[nextPos])
       },
     });
-  }
+  };
 
-  prevLetter(): void {
+  prevLetter = () => {
     combineLatest([this.visibleLetters$, this.selectedLetter$])
     .pipe(take(1))
     .subscribe({
@@ -115,9 +115,9 @@ export class State {
         this.selectLetter(visibleLetters[nextPos])
       },
     });
-  }
+  };
 
-  nextFolder(): void {
+  nextFolder = () => {
     const selectedFolder = this.selectedFolder$.value;
 
     let nextPos = FOLDERS.indexOf(selectedFolder) + 1;
@@ -126,9 +126,9 @@ export class State {
     }
 
     this.selectedFolder$.next(FOLDERS[nextPos]);
-  }
+  };
 
-  prevFolder(): void {
+  prevFolder = () => {
     const selectedFolder = this.selectedFolder$.value;
 
     let nextPos = FOLDERS.indexOf(selectedFolder) - 1;
@@ -137,5 +137,5 @@ export class State {
     }
 
     this.selectedFolder$.next(FOLDERS[nextPos]);
-  }
+  };
 }

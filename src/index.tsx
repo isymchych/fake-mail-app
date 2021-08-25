@@ -14,7 +14,8 @@ const state = new State();
 // * clear selection on folder change
 // * clear selection after letter update if needed
 
-actionHandlers$(state).subscribe();
+actionHandlers$(state)
+  .subscribe(action => console.log('action: %s', action));
 
 interval(60 * 1000).pipe(
   startWith(0),
