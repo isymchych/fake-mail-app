@@ -9,12 +9,6 @@ export class State {
   selectedFolder$ = new BehaviorSubject<IFolder>(FOLDERS[0]);
   selectedLetterId$ = new BehaviorSubject<string | undefined>(undefined);
 
-  selectedLetter$ = this.selectedLetterId$.pipe(
-    switchMap(selectedLetterId => this.letters$.pipe(
-      map((letters): ILetter | undefined => letters.find(letter => letter.id === selectedLetterId)),
-    )),
-  );
-
   visibleLetters$ = this.selectedFolder$.pipe(
     mergeMap((selectedFolder) =>
       this.letters$.pipe(
@@ -23,6 +17,12 @@ export class State {
         )
       ),
     ),
+  );
+
+  selectedLetter$ = this.selectedLetterId$.pipe(
+    switchMap(selectedLetterId => this.visibleLetters$.pipe(
+      map((letters): ILetter | undefined => letters.find(letter => letter.id === selectedLetterId)),
+    )),
   );
 
   markLetterRead(letterId: string, isRead: boolean): void {
