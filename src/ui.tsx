@@ -2,7 +2,8 @@ import { map, mergeMap } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import classNames from 'classnames';
 import { formatRelative } from 'date-fns';
-import { FOLDERS, State } from './state';
+import { State } from './state';
+import { FOLDERS } from './folders';
 
 export function buildApp$(state: State, currentDate: Date): Observable<JSX.Element> {
   const {

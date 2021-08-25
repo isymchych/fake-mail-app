@@ -2,33 +2,7 @@ import { map, mergeMap, switchMap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { IFolder, ILetter } from './types';
 import { genFakeLetters, sortLettersByDateDesc } from './utils';
-
-export const FOLDERS: IFolder[] = [
-  {
-    name: 'Inbox',
-    containsLetter(letter: ILetter): boolean {
-      return !letter.isRead;
-    }
-  },
-  {
-    name: 'Read',
-    containsLetter(letter: ILetter): boolean {
-      return letter.isRead;
-    }
-  },
-  {
-    name: 'All',
-    containsLetter(_letter: ILetter): boolean {
-      return true;
-    }
-  },
-  {
-    name: 'Deleted',
-    containsLetter(letter: ILetter): boolean {
-      return letter.isDeleted;
-    }
-  },
-];
+import { FOLDERS } from './folders';
 
 export class State {
   letters$ = new BehaviorSubject<ILetter[]>(genFakeLetters());
