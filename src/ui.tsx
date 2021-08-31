@@ -6,6 +6,7 @@ import { State } from './state';
 import { FOLDERS } from './folders';
 import { KEYBINDINGS } from './keybindings';
 import { DeleteCheckbox } from './DeleteCheckbox';
+import { Fragment } from 'react';
 
 const keybindingsUI = (
   <table id="keybindings">
@@ -84,7 +85,7 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
       }
 
       return (
-        <>
+        <Fragment key={selectedLetter.id}>
           <div id="toolbar">
             <label>
               <input
@@ -116,7 +117,7 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
               {selectedLetter.preview}
             </div>
           </article>
-        </>
+        </Fragment>
       );
     })
   );
