@@ -4,7 +4,7 @@ export const FOLDERS: IFolder[] = [
   {
     name: 'Inbox',
     containsLetter(letter: ILetter): boolean {
-      return !letter.isRead;
+      return !letter.isRead && !letter.isDeleted;
     }
   },
   {

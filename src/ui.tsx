@@ -5,6 +5,7 @@ import { formatRelative } from 'date-fns';
 import { State } from './state';
 import { FOLDERS } from './folders';
 import { KEYBINDINGS } from './keybindings';
+import { DeleteCheckbox } from './DeleteCheckbox';
 
 const keybindingsUI = (
   <table id="keybindings">
@@ -95,15 +96,10 @@ export function buildApp$(state: State, currentDate: Date): Observable<JSX.Eleme
               Is read
             </label>
 
-            <label>
-              <input
-                type="checkbox"
-                checked={selectedLetter.isDeleted}
-                onChange={() => state.toggleSelectedLetterDeleted()}
-              />
-
-              Is deleted
-            </label>
+            <DeleteCheckbox
+              isDeleted={selectedLetter.isDeleted}
+              toggleDelete={state.toggleSelectedLetterDeleted}
+            />
           </div>
 
           <article>
